@@ -1,71 +1,72 @@
 {
-  "name": "oquiz",
-  "version": "0.0.1",
-  "description": "Une application de quiz faites par les très doués Quindim",
-  "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
-  "repository": {
-    "url": "https://github.com/O-clock-Quindim/S10"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "db:create": "psql -U laly -d game1 -f data/create-tables.sql",
-    "db:seed": "psql -U laly -d game1 < data/seed-data.sql",
-    "db:reset": "npm run db:create && npm run db:seed"
-  },
-  "keywords": [
-    "POO",
-    "oquiz",
-    "quiz",
-    "postgresql",
-    "dotenv"
-  ],
-  "author": "Oclock-Quindim",
-  "dependencies": {
-    "dotenv": "^16.4.5",
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "express-session": "^1.18.0",
-    "multer": "^1.4.5-lts.1",
-    "pg": "^8.12.0",
-    "sequelize": "^6.37.3",
-    "ws": "^8.18.0"
-  },
-  "devDependencies": {
-    "eslint": "^8.57.0",
-    "nodemon": "^3.1.4",
-    "prettier": "^3.3.3"
-  },
-  "prettier": {
-    "printWidth": 80,
-    "tabWidth": 4,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "bracketSpacing": true,
-    "jsxBracketSameLine": false,
-    "overrides": [
-      {
-        "files": "*.js",
-        "options": {
-          "parser": "babel"
-        }
-      },
-      {
-        "files": "*.json",
-        "options": {
-          "parser": "json",
-          "tabWidth": 2
-        }
-      }
-    ],
-    "semi": true,
-    "requirePragma": false,
-    "proseWrap": "preserve",
-    "arrowParens": "avoid",
-    "htmlWhitespaceSensitivity": "css",
-    "quoteProps": "as-needed"
-  }
+	"name": "back-chicmixte",
+	"version": "0.0.1",
+	"description": "Une application backoffice pour gérer chicmixte",
+	"main": "index.js",
+	"private": true,
+	"directories": {
+		"doc": "docs"
+	},
+	"repository": {
+		"url": "https://github.com/O-clock-Quindim/S10"
+	},
+	"scripts": {
+		"start": "node index.js",
+		"dev:back": "npm --prefix app run dev",
+		"dev:front": "npm --prefix front run dev",
+		"dev": "concurrently \"npm run dev:back\" \"npm run dev:front\"",
+		"build": "npm --prefix app run build && npm --prefix front run build",
+		"db:create": "psql -U backadmin -d backofficechic -f data/create-tables.sql",
+		"db:seed": "psql -U backadmin -d backofficechic < data/seed-data.sql",
+		"db:seedproduct": "psql -U backadmin -d backofficechic < data/seed-product.sql",
+		"db:reset": "npm run db:create && npm run db:seed",
+		"format": "biome format .",
+		"check": "biome check ."
+	},
+	"keywords": ["POO", "oquiz", "quiz", "postgresql", "dotenv"],
+	"author": "Oclock-Quindim",
+	"dependencies": {
+		"@biomejs/biome": "^1.5.2-nightly.91c7730",
+		"dotenv": "^16.4.5",
+		"ejs": "^3.1.10",
+		"express": "^4.19.2",
+		"express-session": "^1.18.0",
+		"multer": "^1.4.5-lts.1",
+		"pg": "^8.12.0",
+		"sequelize": "^6.37.3",
+		"ws": "^8.18.0"
+	},
+	"devDependencies": {
+		"concurrently": "^7.6.0",
+		"nodemon": "^3.1.4"
+	},
+	"prettier": {
+		"printWidth": 80,
+		"tabWidth": 4,
+		"singleQuote": true,
+		"trailingComma": "es5",
+		"bracketSpacing": true,
+		"jsxBracketSameLine": false,
+		"overrides": [
+			{
+				"files": "*.js",
+				"options": {
+					"parser": "babel"
+				}
+			},
+			{
+				"files": "*.json",
+				"options": {
+					"parser": "json",
+					"tabWidth": 2
+				}
+			}
+		],
+		"semi": true,
+		"requirePragma": false,
+		"proseWrap": "preserve",
+		"arrowParens": "avoid",
+		"htmlWhitespaceSensitivity": "css",
+		"quoteProps": "as-needed"
+	}
 }

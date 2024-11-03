@@ -1,0 +1,18 @@
+{
+	"formatter": {
+		"lineWidth": 80,
+		"indentStyle": "tab",
+		"indentWidth": 2,
+		"quoteStyle": "single",
+		"trailingComma": "all"
+	},
+	"organizeImports": true,
+	"files": {
+		"ignore": [
+			"node_modules",
+			"**/node_modules/**",
+			"**/dist/**",
+			"**/build/**"
+		]
+	}
+}
