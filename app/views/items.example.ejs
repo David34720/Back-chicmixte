@@ -1,0 +1,76 @@
+<%- include('partials/head') %>
+
+<main class="container py-4">
+    <% if (notification) { %>
+        <div class="alert alert-<%= notification.level %>">
+            <%= notification.message %>
+        </div>
+    <% } %>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h1 class="my-3">Liste des Items</h1>
+        <div>
+            <form action="/items" method="GET" class="d-inline-block">
+                <label for="type" class="form-label">Filtrer par Type :</label>
+                <select name="type" id="type" class="form-select d-inline-block w-auto" onchange="this.form.submit()">
+                    <option value="">Tous les types</option>
+                    <% types.forEach(t => { %>
+                        <option value="<%= t.id %>" <%= selectedType == t.id ? 'selected' : '' %>><%= t.name %></option>
+                    <% }); %>
+                </select>
+            </form>
+            <a href="/items/types" class="btn btn-secondary">Type d'item</a> 
+            <a href="/items/add" class="btn btn-primary ml-2">Créer un nouvel Item</a>
+        </div>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Type</th>
+                <th>Obstacle</th>
+                <th>Objet</th>
+                <th>Effet</th>
+                <th>Vie</th>
+                <th>Valeur</th>
+                <th>Contexte</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% items.forEach(item => { %>
+                <tr>
+                    <td><%= item.id %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.description %></td>
+                    <td class="text-center">
+                        <% if (item.img && item.img !== 'ddd') { %>
+                            <img src="<%= item.img %>" alt="<%= item.name %>" class="img-fluid" style="max-width: 50px;">
+                        <% } else { %>
+                            <span class="no-image-icon" title="Image non disponible">&#x1F5BC;</span>
+                        <% } %>
+                    </td>
+                    <td><%= item.type ? item.type.name : 'Non défini' %></td>
+                    <td><%= item.is_obstacle %></td>
+                    <td><%= item.is_object %></td>
+                    <td><%= item.effect %></td>
+                    <td><%= item.life %></td>
+                    <td><%= item.value %></td>
+                    <td><%= item.context %></td>
+                    <td>
+                        <a href="/items/edit/<%= item.id %>" class="btn btn-warning btn-sm">Éditer</a>
+                        <a href="/items/duplicate/<%= item.id %>" class="btn btn-success btn-sm">Dupliquer</a>
+                        <form action="/items/delete/<%= item.id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</main>
+
+<%- include('partials/foot') %>

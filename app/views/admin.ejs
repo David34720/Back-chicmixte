@@ -1,0 +1,194 @@
+<%- include('partials/head') %>
+
+<main class="container py-4">
+
+  <% if (notification) { %>
+      <div class="alert alert-<%= notification.level %>">
+          <%= notification.message %>
+      </div>
+  <% } %>
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+      <h1 class="my-3">Administration des Utilisateurs, Rôles et Permissions</h1>
+  </div>
+
+  <!-- Tableau pour afficher les utilisateurs, leurs rôles et permissions -->
+   <!-- Gestion des Utilisateurs -->
+   <h2>Gestion des Utilisateurs</h2>
+   <table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Rôle</th>
+            <th>Permissions</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% users.forEach(user => { %>
+            <tr>
+                <td><%= user.id %></td>
+                <td><%= user.firstname %> <%= user.lastname %></td>
+                <td><%= user.email %></td>
+                <td>
+                    <form action="/users/updateRole/<%= user.id %>" method="POST" class="d-flex">
+                        <select name="role_id" class="form-select me-2" onchange="this.form.submit()">
+                            <% roles.forEach(role => { %>
+                                <option value="<%= role.id %>" <%= role.id === user.role.id ? 'selected' : '' %>><%= role.name %></option>
+                            <% }); %>
+                        </select>
+                    </form>
+                </td>
+                <td>
+                    <ul class="list-unstyled">
+                        <% user.role.permissions.forEach(permission => { %>
+                            <li><%= permission.name %></li>
+                        <% }); %>
+                    </ul>
+                </td>
+                <td>
+                    <form action="/admin/impersonate/<%= user.id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-info">Se connecter en tant que</button>
+                    </form>
+                    <form action="/users/delete/<%= user.id %>" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                    </form>
+                </td>
+            </tr>
+        <% }); %>
+    </tbody>
+</table>
+
+   <!-- Section pour la gestion des rôles -->
+   <h2 class="mt-5">Gestion des Rôles</h2>
+   <table class="table table-striped">
+       <thead>
+           <tr>
+               <th>ID</th>
+               <th>Nom du Rôle</th>
+               <th>Actions</th>
+           </tr>
+       </thead>
+       <tbody>
+           <% roles.forEach(role => { %>
+               <tr>
+                   <td><%= role.id %></td>
+                   <td>
+                       <form action="/roles/update/<%= role.id %>" method="POST" class="d-flex">
+                           <input type="text" name="role_name" class="form-control me-2" value="<%= role.name %>" onchange="this.form.submit()">
+                       </form>
+                   </td>
+                   <td>
+                       <form action="/roles/delete/<%= role.id %>" method="POST" class="d-inline">
+                           <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                       </form>
+                   </td>
+               </tr>
+           <% }); %>
+       </tbody>
+   </table>
+
+   <!-- Formulaire pour ajouter un nouveau rôle -->
+   <form action="/roles/create" method="POST" class="row g-3 align-items-center mt-4">
+       <div class="col-auto">
+           <label for="role_name" class="form-label">Nom du nouveau Rôle</label>
+       </div>
+       <div class="col-auto">
+           <input type="text" name="role_name" class="form-control" required>
+       </div>
+       <div class="col-auto">
+           <button type="submit" class="btn btn-primary">Créer un Rôle</button>
+       </div>
+   </form>
+
+   <!-- Section pour la gestion des permissions -->
+   <h2 class="mt-5">Gestion des Permissions</h2>
+   <table class="table table-striped">
+       <thead>
+           <tr>
+               <th>ID</th>
+               <th>Nom de la Permission</th>
+               <th>Actions</th>
+           </tr>
+       </thead>
+       <tbody>
+           <% permissions.forEach(permission => { %>
+               <tr>
+                   <td><%= permission.id %></td>
+                   <td>
+                       <form action="/permissions/update/<%= permission.id %>" method="POST" class="d-flex">
+                           <input type="text" name="permission_name" class="form-control me-2" value="<%= permission.name %>" onchange="this.form.submit()">
+                       </form>
+                   </td>
+                   <td>
+                       <form action="/permissions/delete/<%= permission.id %>" method="POST" class="d-inline">
+                           <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
+                       </form>
+                   </td>
+               </tr>
+           <% }); %>
+       </tbody>
+   </table>
+
+   <!-- Formulaire pour ajouter une nouvelle permission -->
+   <form action="/permissions/create" method="POST" class="row g-3 align-items-center mt-4">
+       <div class="col-auto">
+           <label for="permission_name" class="form-label">Nom de la nouvelle Permission</label>
+       </div>
+       <div class="col-auto">
+           <input type="text" name="permission_name" class="form-control" required>
+       </div>
+       <div class="col-auto">
+           <button type="submit" class="btn btn-primary">Créer une Permission</button>
+       </div>
+   </form>
+
+  <!-- Formulaire pour ajouter un nouveau rôle -->
+  <form action="/roles/create" method="POST" class="row g-3 align-items-center mt-4">
+        <div class="col-auto">
+            <label for="role_name" class="form-label">Nom du nouveau Rôle</label>
+        </div>
+        <div class="col-auto">
+            <input type="text" name="role_name" class="form-control" required>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Créer un Rôle</button>
+        </div>
+  </form>
+
+  <!-- Tableau des permissions par rôle -->
+  <h2 class="mt-5">Attribution des Permissions par Rôle</h2>
+  <table class="table table-bordered">
+      <thead>
+          <tr>
+              <th>Permissions</th>
+              <% roles.forEach(role => { %>
+                  <th><%= role.name %></th>
+              <% }); %>
+          </tr>
+      </thead>
+      <tbody>
+          <% permissions.forEach(permission => { %>
+              <tr>
+                  <td><%= permission.name %></td>
+                  <% roles.forEach(role => { %>
+                      <td>
+                          <form action="/permissions/toggle" method="POST">
+                              <input type="hidden" name="role_id" value="<%= role.id %>">
+                              <input type="hidden" name="permission_id" value="<%= permission.id %>">
+                              <input type="checkbox" name="has_permission" 
+                                     onchange="this.form.submit()" 
+                                     <%= role.permissions.some(p => p.id === permission.id) ? 'checked' : '' %>>
+                          </form>
+                      </td>
+                  <% }); %>
+              </tr>
+          <% }); %>
+      </tbody>
+  </table>
+
+</main>
+
+<%- include('partials/foot') %>

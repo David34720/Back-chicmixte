@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <!-- Meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <!-- <script
+         
+           
+        ></script> -->
+
+    <!-- Custom CSS -->
+    <link href="/css/style.css" rel="stylesheet" />
+
+    <!-- Tab title -->
+    <title>Laly's game</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="d-flex justify-content-between align-items-center p-3 bg-primary text-white">
+        <a href="#" class="h3 text-white text-decoration-none">Senior admin</a>
+        <% if (locals.user) { %>
+            <span style="color: rgba(179, 97, 80, 0.7);">Connecté en tant que <%= locals.user.firstname %></span>
+            <% } %>
+                <span></span>
+                <nav class="my-1">
+                    <% if (locals.originalAdmin) { %>
+                        <form action="/admin/revert-impersonation" method="POST">
+                            <button type="submit" class="btn btn-warning">Revenir à mon compte</button>
+                        </form>
+                        <% } %>
+                            <a class="p-2 text-white" href="/">Accueil</a>
+                            <a class="p-2 text-white" href="/admin">Admin</a>
+                            <a class="p-2 text-white" href="/">Truc</a>
+                            <a class="p-2 text-white" href="/">muche</a>
+                            <a class="p-2 text-white" href="/">Etc</a>
+                            <!-- <% if (locals.user) { %> -->
+                            <!-- <% if (locals.user && locals.user.role && locals.user.role.name === 'admin') { %> -->
+                            <!-- <% } %> -->
+                            <a class="p-2" style="color: rgba(179, 97, 80, 0.7)" href="/logout">Se déconnecter</a>
+                            <!-- <% } else { %> -->
+                            <a class="p-2 text-white" href="/register">S'inscrire</a>
+                            <a class="p-2 text-white" href="/login">Se connecter</a>
+                            <!-- <% } %> -->
+                </nav>
+
+    </header>

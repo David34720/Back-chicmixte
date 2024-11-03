@@ -1,0 +1,32 @@
+<%- include('partials/head') %>
+
+<div class="container container-main">
+    <div class="row text-center" style="background-color: #ff5555a1;"> <!-- Ajout de la classe text-center pour centrer horizontalement -->
+
+        <h1><%= status %></h1>
+        <div class="col-md-12">
+            <p><%= error %></p>
+            <% if (locals.status !== 404) { %>
+                <!-- ! On n'affiche pas le stack si on est production -->
+                <% if (locals.stack) { %>
+                    <pre><%= stack %></pre>
+                    <% } %>
+                    
+                    <% } %>
+                    
+                    <p>
+                        <a href="/">Retour à l'accueil</a>
+                    </p>
+                    
+                    <% if (locals.status === 404) { %>
+                        <p>Page introuvable</p>
+                        <!-- Utilisation des classes d-flex et justify-content-center pour centrer l'image -->
+                        <div class="d-flex justify-content-center">
+                    <img id="img404" src="/img/img404.png" alt="404" class="img-fluid" />
+                </div>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/foot') %>

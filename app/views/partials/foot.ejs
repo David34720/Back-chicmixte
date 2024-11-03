@@ -1,0 +1,30 @@
+    <footer class="pt-4 border-top text-center">
+        <small class="text-muted">DaviA © 2024</small>
+    </footer>
+
+        <div class="notifications"></div>
+    <!-- Modale pour le choix des personnages -->
+   <!-- Modale pour le choix des personnages -->
+    <!-- Modale pour le choix des personnages -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Choisissez votre personnage</h2>
+            <div class="character-selection">
+                <!-- Les personnages seront insérés ici dynamiquement -->
+            </div>
+        </div>
+    </div>
+        <script src="/js/app.js"></script>
+        <script defer>
+          const notification = <%- JSON.stringify(notification || null) %>;
+          if (notification !== null) {
+              console.log('Notification trouvée:', notification.message, notification.level);
+              new CustomNotification(notification.message, notification.level, 5000);
+          } else {
+              console.log('Aucune notification disponible.');
+          }
+      </script>
+    <script src="/js/websocket.js" defer></script>
+    </body>
+</html> 

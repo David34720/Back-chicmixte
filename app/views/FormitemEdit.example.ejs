@@ -1,0 +1,71 @@
+<%- include('partials/head') %>
+
+<main class="container py-4">
+    <h1 class="my-3">Modifier l'Item</h1>
+
+    <form class="mb-5" action="/items/update/<%= item.id %>" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label" for="name">Nom de l'Item</label>
+            <input class="form-control" type="text" name="name" id="name" placeholder="Nom de l'Item" value="<%= item ? item.name : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <input class="form-control" type="text" name="description" id="description" placeholder="Description de l'Item" value="<%= item ? item.description : '' %>" >
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="img">Image</label>
+            <input class="form-control" type="file" name="img" id="img" <%= item ? '' : 'required' %> >
+            <% if (item && item.img) { %>
+                <small>Image actuelle: <img src="<%= item.img %>" alt="Image de l'item" width="50"></small>
+            <% } %>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="item_type">Type d'Item</label>
+            <select class="form-select" name="item_type" id="item_type" required>
+                <option value="">Sélectionnez un type</option>
+                <% types.forEach(type => { %>
+                    <option value="<%= type.id %>" <%= item && item.item_type === type.id ? 'selected' : '' %> ><%= type.name %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="effect">Effet</label>
+            <input class="form-control" type="number" name="effect" id="effect" placeholder="Valeur de l'effet" value="<%= item ? item.effect : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="life">Vie</label>
+            <input class="form-control" type="number" name="life" id="life" placeholder="Points de vie" value="<%= item ? item.life : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="value">Valeur</label>
+            <input class="form-control" type="number" name="value" id="value" placeholder="Valeur de l'Item" value="<%= item ? item.value : '' %>" required>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="context">Contexte</label>
+            <textarea class="form-control" name="context" id="context" rows="3" placeholder="Contexte d'utilisation" ><%= item ? item.context : '' %></textarea>
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label" for="is_obstacle">Obstacle</label>
+            <input class="form-check-input" type="checkbox" name="is_obstacle" id="is_obstacle" <%= item && item.is_obstacle ? 'checked' : '' %> >
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="is_object">Objet</label>
+            <input class="form-check-input" type="checkbox" name="is_object" id="is_object" <%= item && item.is_object ? 'checked' : '' %> >
+        </div>
+        
+        
+
+        <input class="btn btn-primary mt-3" type="submit" value="Mettre à jour l'Item">
+    </form>
+</main>
+
+<%- include('partials/foot') %>

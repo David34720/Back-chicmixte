@@ -1,0 +1,36 @@
+:root {
+	--primary-color: #3c0f91;
+	--secondary-color: #4e3fac;
+	--text-color: #e4e0ff;
+	--textPrimary-color: #3e1e04;
+	--hover-color: #c50fa0;
+	--hover-bg-color: #182b79;
+}
+/* historique utile? */
+/* .notifications {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 25px;
+    right: 25px;
+}
+
+.notification {
+    margin-bottom: 1rem;
+    color: white;
+    padding: 1em;
+}
+
+.success {
+    background-color: green;
+}
+
+.warning {
+    background-color: orange;
+}
+.danger {
+    background-color: red;
+}
+.bg-primary {
+    background-color: var(--primary-color) !important;
+} */

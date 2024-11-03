@@ -1,0 +1,7 @@
+User ( id, email, firstname, lastname, password )
+Quiz ( id, title, description, #User(id) )
+Tag ( id, name )
+Question ( id, description, anecdote, wiki, #Quiz(id), #Answer(id), #Level(id) )
+Answer ( id, description, #Question(id) )
+Level ( id, name )
+Quiz_Has_Tag ( #Quiz(id), #Tag(id) )
